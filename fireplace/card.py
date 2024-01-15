@@ -888,6 +888,7 @@ class Minion(Character):
 	has_inspire = boolean_property("has_inspire")
 	spellpower = int_property("spellpower")
 	has_magnetic = boolean_property("has_magnetic")
+	tech_level = int_property("tech_level")
 
 	silenceable_attributes = (
 		"always_wins_brawls", "aura", "cant_attack", "cant_be_targeted_by_abilities",

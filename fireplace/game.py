@@ -50,51 +50,51 @@ class BaseGame(Entity):
 
 	@property
 	def is_standard(self):
-		return self.player1.is_standard and self.player2.is_standard
+		return all(player.is_standard for player in self.players)
 
 	@property
 	def board(self):
-		ret = CardList(chain(self.players[0].field, self.players[1].field))
+		ret = CardList(chain(player.field for player in self.players))
 		ret.sort(key=lambda e: e.play_counter)
 		return ret
 
 	@property
 	def decks(self):
-		return CardList(chain(self.players[0].deck, self.players[1].deck))
+		return CardList(chain(player.deck for player in self.players))
 
 	@property
 	def discarded(self):
-		return CardList(chain(self.players[0].discarded, self.players[1].discarded))
+		return CardList(chain(player.discarded for player in self.players))
 
 	@property
 	def hands(self):
-		return CardList(chain(self.players[0].hand, self.players[1].hand))
+		return CardList(chain(player.hand for player in self.players))
 
 	@property
 	def characters(self):
-		ret = CardList(chain(self.players[0].characters, self.players[1].characters))
+		ret = CardList(chain(player.characters for player in self.players))
 		ret.sort(key=lambda e: e.play_counter)
 		return ret
 
 	@property
 	def graveyard(self):
-		return CardList(chain(self.players[0].graveyard, self.players[1].graveyard))
+		return CardList(chain(player.graveyard for player in self.players))
 
 	@property
 	def entities(self):
-		ret = CardList(chain([self], self.players[0].entities, self.players[1].entities))
+		ret = CardList([self] + chain(player.entities for player in self.players))
 		ret.sort(key=lambda e: e.play_counter)
 		return ret
 
 	@property
 	def live_entities(self):
-		ret = CardList(chain(self.players[0].live_entities, self.players[1].live_entities))
+		ret = CardList(chain(player.live_entities for player in self.players))
 		ret.sort(key=lambda e: e.play_counter)
 		return ret
 
 	@property
 	def minions_killed_this_turn(self):
-		return self.players[0].minions_killed_this_turn + self.players[1].minions_killed_this_turn
+		return CardList(chain(player.minions_killed_this_turn for player in self.players))
 
 	@property
 	def ended(self):
